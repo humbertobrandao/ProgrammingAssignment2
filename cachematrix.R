@@ -1,15 +1,39 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
-
-makeCacheMatrix <- function(x = matrix()) {
-
+makeCacheMatrix <- function( myMatrix = matrix() ) {
+	
+	Minv <- NULL;
+		set<-function(Y){
+			myMatrix <<- Y;
+			Minv <<-NULL;
+		}
+	
+	get<-function(){
+		myMatrix;
+	}
+	
+	setMatInv <- function( MatInverse ){
+		Minv <<- MatInverse;
+	}
+	
+	getMatInv <- function(){
+		Minv;
+	}
+	
+	mypseudoMatrix <<- list( get=get, setMatInv=setMatInv, getMatInv=getMatInv ){
+		mypseudoMatrix;
+	}
+	
 }
 
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+cacheSolve <- function( get_setMatInv_getMatInv_of_myMatrix = mypseudoMatrix, ... ) {
+	Minv <- get_setMatInv_getMatInv_of_myMatrix$getMatInv();
+	
+	if(!is.null(Minv)){
+		message("getting cached matrix inverse");
+		return(Minv);
+	}
+	
+	DataMatrix <- get_setMatInv_getMatInv_of_myMatrix$get();
+	Minv <- solve(DataMatrix,...);
+	get_setMatInv_getMatInv_of_myMatrix$setMatInv(Minv);
+	Minv;
 }
